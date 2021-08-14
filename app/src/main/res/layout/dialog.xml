@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/japan"
+        android:text="@string/japan"
+        android:layout_marginTop="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/black"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_japan_word"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:maxLength="30" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/russia"
+        android:text="@string/russian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:textColor="@color/black"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_russian_word"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:maxLength="30" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/button_add"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/add"
+        android:textSize="20sp"/>
+    <Button
+        android:id="@+id/button_add_document"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/document"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/button_dismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dismiss"
+        android:textSize="20sp"
+        />
+
+
+
+
+
+</TableLayout>
