@@ -14,18 +14,24 @@ import com.tom_roush.pdfbox.util.PDFBoxResourceLoader;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     private Dialog dialog;
     private DBHelper dbHelper;
+    ArrayList<Words> words = new ArrayList<Words>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +42,13 @@ public class MainActivity extends AppCompatActivity {
         dialog = new Dialog(MainActivity.this);
         dbHelper = new DBHelper(this);
         dbHelper.getReadableDatabase();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
 //        dbHelper.deleteDB(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setColorFilter(Color.argb(255, 255, 255, 255));
+        WordsAdapter adapter = new WordsAdapter(this, words);
+        recyclerView.setAdapter(adapter);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), parse.getErrorMessage(), Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         } else {
+                            words.add(new Words(russiaWord, japanWord));
                             dbHelper.dbEnterData(russiaWord, japanWord);
+                            recyclerView.setAdapter(adapter);
                             dialog.dismiss();
                         }
                     }
@@ -87,11 +98,17 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+        dbHelper.dbReturnData(words);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    public void showTranslate() {
+
     }
 
 
@@ -115,5 +132,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void createListOfWords() {
     }
 }

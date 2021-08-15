@@ -15,4 +15,6 @@
     <string name="dismiss">Отмена</string>
     <string name="add">Добавить</string>
     <string name="document">Добавить через документ</string>
+    <string name="display">Слово</string>
+    <string name="flip">Показать перевод</string>
 </resources>

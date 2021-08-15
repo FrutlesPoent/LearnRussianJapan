@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class DBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1; // old or not
     public static final String DATABASE_NAME = "japanWords";
@@ -59,4 +61,22 @@ public class DBHelper extends SQLiteOpenHelper {
         close();
 
         }
+
+        public void dbReturnData(ArrayList<Words> words) {
+            SQLiteDatabase database = getReadableDatabase();
+            Cursor cursor = database.query(TABLE_WORDS, null,null,null, null, null, null);
+            if (cursor.moveToFirst()) {
+                int russianIndex = cursor.getColumnIndex(KEY_RUSSIAN);
+                int japanIndex = cursor.getColumnIndex(KEY_JAPAN);
+
+                do {
+                    words.add(new Words(cursor.getString(russianIndex), cursor.getString(japanIndex)));
+
+                } while (cursor.moveToNext());
+            } else {
+                Log.d("mLog", " empty");
+            }
+            cursor.close();
+        }
+
 }
