@@ -51,6 +51,14 @@ public class Parser {
         return true;
     }
 
+//    public boolean checkSingleString(String text) {
+//        if (!isRussia(text))
+//            return false;
+//        if (!isJapan(text))
+//            return false;
+//        return true;
+//    }
+
     public String getErrorMessage() {
         return errorMessage;
     }

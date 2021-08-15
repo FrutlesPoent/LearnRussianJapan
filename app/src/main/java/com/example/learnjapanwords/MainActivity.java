@@ -24,9 +24,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String notRussian = "Присутствуют символы другого языка";
-    private String notJapan = "Присутствуют символы другого языка";
-
     private Dialog dialog;
     private DBHelper dbHelper;
 
@@ -39,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         dialog = new Dialog(MainActivity.this);
         dbHelper = new DBHelper(this);
         dbHelper.getReadableDatabase();
+//        dbHelper.deleteDB(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setColorFilter(Color.argb(255, 255, 255, 255));
@@ -81,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
                         PDFBoxResourceLoader.init(getApplicationContext());
                         AssetManager assetManager;
                         assetManager = getAssets();
-                        String text = readFile.parsePDFile(assetManager, dbHelper);
-                        dbHelper.getReadableDatabase();
+                        readFile.parsePDFile(assetManager, dbHelper);
+                        dialog.dismiss();
                     }
                 });
                 dialog.setCancelable(false);
@@ -94,12 +92,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getWords();
     }
 
-    private void getWords() {
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

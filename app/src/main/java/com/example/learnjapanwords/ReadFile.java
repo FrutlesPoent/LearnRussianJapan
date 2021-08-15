@@ -24,12 +24,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ReadFile {
+    private int countWordPlace = 0;
 
     private String extractPDFText(AssetManager assetManager) {
         String parsedText = null;
         PDDocument document = null;
         try{
-            document = PDDocument.load(assetManager.open("jap.pdf"));
+            document = PDDocument.load(assetManager.open("japan2.pdf"));
         }catch (IOException e) {
             Log.e("Error", String.valueOf(e));
         }
@@ -55,20 +56,23 @@ public class ReadFile {
     }
 
     private void divideRussianJapan(String text, DBHelper dbHelper) {
-        String[] parsedText = text.split(" ");
-        dbHelper.dbEnterData(parsedText[2], parsedText[1]);
-        dbHelper.close();
+        String[] parsedText = text.split("-");
+        parsedText[1] = parsedText[1].trim(); // [1] is russian word
+        parsedText[0] = parsedText[0].trim(); // [0] japan word
+        if (!parsedText[1].contains(";") && !parsedText[0].equals(" ")) {
+            dbHelper.dbEnterData(parsedText[1], parsedText[0]);
+            dbHelper.close();
+        }
+        countWordPlace += 1;
         return;
     }
 
     private void divide(String text, DBHelper dbHelper) {
         String[] parsedText = text.split(";");
-//        for (String word : parsedText) {
-//            divideRussianJapan(word, dbHelper);
-//        }
         for (int i = 0; i < parsedText.length; i++) {
             divideRussianJapan(parsedText[i], dbHelper);
         }
+        countWordPlace = 0;
 
     }
 
